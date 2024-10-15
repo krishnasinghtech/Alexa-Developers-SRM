@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from "react";
 import eventPoster1 from "../assets/eventPoster1.jpg";
 
 function Events() {
     const [showMore, setShowMore] = useState(false);
-    const [hoveredEventId, setHoveredEventId] = useState(null);
+    const [visibleEventDescriptions, setVisibleEventDescriptions] = useState([]);
 
     const events = [
         { id: 1, title: "Tech Conference 2024", date: "Jan 15, 2024", image: eventPoster1, description: "Join us for a day of tech insights and networking." },
@@ -17,6 +17,21 @@ function Events() {
 
     const displayedEvents = showMore ? events : events.slice(0, 6);
 
+    useEffect(() => {
+        let index = 0;
+
+        const interval = setInterval(() => {
+            if (index < displayedEvents.length) {
+                setVisibleEventDescriptions(prev => [...prev, displayedEvents[index]]);
+                index++;
+            } else {
+                clearInterval(interval);
+            }
+        }, 1000); // Adjust timing as needed
+
+        return () => clearInterval(interval);
+    }, [displayedEvents]);
+
     return (
         <div className="bg-background py-12">
             <div className="flex justify-center mb-10">
@@ -26,34 +41,23 @@ function Events() {
             </div>
 
             <div className="relative">
-                <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-8 ${!showMore ? 'overflow-hidden max-h-[650px]' : ''}`}>
-                    {displayedEvents.map(event => (
-                        <div 
-                            key={event.id} 
-                            className="text-center flex justify-around items-center relative"
-                            onMouseEnter={() => setHoveredEventId(event.id)}
-                            onMouseLeave={() => setHoveredEventId(null)}
-                        >
+                <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-5 sm:px-8 ${!showMore ? 'overflow-hidden max-h-[650px]' : ''}`}>
+                    {visibleEventDescriptions.map(event => (
+                        <div key={event.id} className="text-center flex justify-around items-center relative">
                             <div className="flex flex-col">
-                                <div className="w-[400px] h-[300px] overflow-hidden rounded-xl mx-auto relative">
+                                <div className="w-full max-w-[400px] h-[250px] sm:h-[300px] overflow-hidden rounded-xl mx-auto relative">
                                     <img 
-                                        className="w-full h-full object-cover shadow-lg transition-transform transform hover:scale-105"
+                                        className="w-400 h-200 object-cover shadow-lg transition-transform transform hover:scale-105"
                                         src={event.image} 
                                         alt={event.title} 
                                     />
-                                    {/* Overlay for description */}
-                                    {hoveredEventId === event.id && (
-                                        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white text-lg rounded-xl p-4">
-                                            {event.description}
-                                        </div>
-                                    )}
                                 </div>
-                                <div className="flex justify-around">
+                                <div className="flex justify-around mt-2">
                                     <div>
-                                        <h3 className="text-heading font-heading mt-4">{event.title}</h3>
-                                        <p className="text-text font-text">{event.date}</p>
+                                        <h3 className="text-heading font-heading text-lg sm:text-xl">{event.title}</h3>
+                                        <p className="text-text font-text text-sm sm:text-base">{event.date}</p>
                                     </div>
-                                    <button className="bg-transparent text-accent1 text-2xl rounded-lg transition-transform transform hover:scale-105">Checkout</button>
+                                    <button className="bg-transparent text-accent1 text-lg sm:text-2xl rounded-lg transition-transform transform hover:scale-105">Checkout</button>
                                 </div>
                             </div>
                         </div>

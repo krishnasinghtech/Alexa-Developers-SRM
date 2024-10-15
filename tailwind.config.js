@@ -15,8 +15,17 @@ export default {
       },
       fontSize: {
         title: ['3rem'],  // Title size { lineHeight: '2.5rem' }
-        text: ['1.5rem'],    // Normal text size { lineHeight: '1.5rem' }
+        text: ['1.5rem'],  // Normal text size { lineHeight: '1.5rem' }
         highlight: ['1.125rem'], // Highlighted text size { lineHeight: '1.75rem' }
+      },
+      animation: {
+        'fade-in': 'fade-in 0.5s ease-in-out forwards', // Customize the duration and easing as needed
+      },
+      keyframes: {
+        'fade-in': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
       },
     },
   },

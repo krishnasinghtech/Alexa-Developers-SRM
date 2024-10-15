@@ -23,7 +23,7 @@ function Socials() {
                 </span>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 px-8 relative">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-8 px-5 sm:px-8">
                 {socialLinks.map(social => (
                     <div key={social.id} className="flex flex-col items-center relative">
                         <a 
@@ -35,17 +35,18 @@ function Socials() {
                             <img 
                                 src={social.icon} 
                                 alt={social.name} 
-                                className="w-16 h-16 mb-2 transition-transform transform hover:scale-110" 
+                                className="w-12 h-12 sm:w-16 sm:h-16 mb-2 transition-transform transform hover:scale-110" 
                             />
-                            <span className="text-text font-text">{social.name}</span>
-                            <div className="absolute bottom-full mb-2 hidden group-hover:block bg-slate-600 text-accent2 text-lg rounded-md p-2">
+                            <span className="text-text font-text text-sm sm:text-base">{social.name}</span>
+                            <div className="absolute bottom-full mb-2 hidden group-hover:block bg-slate-600 text-accent2 text-sm sm:text-lg rounded-md p-2">
                                 {social.uid}
                             </div>
                         </a>
                     </div>
                 ))}
             </div>
-            <div className="text-center items-center text-xl text-text py-10">
+
+            <div className="text-center text-xl text-text py-10">
                 Designed and Developed by 
                 <span className="text-accent1"> Alexa Developers </span>SRM.
             </div>
