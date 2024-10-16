@@ -1,31 +1,27 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {
       colors: {
-        background: '#1D232A', // Dark background
-        heading: '#A7ADBA',     // Light gray for headings
-        text: '#FFFFFF',        // Main text color #8A919F
-        accent1: '#FE5860',     // Bright red-orange accent
-        accent2: '#00A86F',     // Bright green accent
+        background: '#1D232A', // Light background color
+        accent1: '#FE5860', // Primary accent color
+        accent2: '#3BC14A', // Secondary accent color
+        'nav-heading': 'white', // Navigation heading color
+        'text': 'white', // Normal text color
+        'normal-text': 'white', // Less emphasized text color
+        'section-title': '#FE5860', // Section title color
       },
       fontSize: {
-        title: ['3rem'],  // Title size { lineHeight: '2.5rem' }
-        text: ['1.5rem'],  // Normal text size { lineHeight: '1.5rem' }
-        highlight: ['1.125rem'], // Highlighted text size { lineHeight: '1.75rem' }
+        'heading': ['2rem', { lineHeight: '2.5rem' }], // Heading font size
+        'normal': ['2rem', { lineHeight: '1.5rem' }], // Normal font size
+        'nav-heading': ['1rem', { lineHeight: '1.5rem' }], // Navigation heading font size
+        'section-title': ['1.5rem', { lineHeight: '2rem' }], // Section title font size
       },
-      animation: {
-        'fade-in': 'fade-in 0.5s ease-in-out forwards', // Customize the duration and easing as needed
-      },
-      keyframes: {
-        'fade-in': {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
+      fontFamily: {
+        sans: ['Poppins', 'sans-serif'], // Ensure you're using a modern sans-serif font
       },
     },
   },

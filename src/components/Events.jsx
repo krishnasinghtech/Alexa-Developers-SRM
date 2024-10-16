@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import eventPoster1 from "../assets/eventPoster1.jpg";
 
 function Events() {
+    // State to toggle between showing more or fewer events
     const [showMore, setShowMore] = useState(false);
     const [visibleEventDescriptions, setVisibleEventDescriptions] = useState([]);
 
+    // Sample events data
     const events = [
         { id: 1, title: "Tech Conference 2024", date: "Jan 15, 2024", image: eventPoster1, description: "Join us for a day of tech insights and networking." },
         { id: 2, title: "Creative Summit", date: "Feb 20, 2024", image: eventPoster1, description: "A gathering of creative minds sharing ideas." },
@@ -15,25 +17,17 @@ function Events() {
         { id: 7, title: "Data Science Expo", date: "Jun 5, 2024", image: eventPoster1, description: "Discover data science innovations." },
     ];
 
+    // Determine which events to display based on showMore state
     const displayedEvents = showMore ? events : events.slice(0, 6);
 
+    // Update visible events when `showMore` changes
     useEffect(() => {
-        let index = 0;
-
-        const interval = setInterval(() => {
-            if (index < displayedEvents.length) {
-                setVisibleEventDescriptions(prev => [...prev, displayedEvents[index]]);
-                index++;
-            } else {
-                clearInterval(interval);
-            }
-        }, 1000); // Adjust timing as needed
-
-        return () => clearInterval(interval);
-    }, [displayedEvents]);
+        setVisibleEventDescriptions(displayedEvents);
+    }, [showMore, displayedEvents]);
 
     return (
         <div className="bg-background py-12">
+            {/* Section Title */}
             <div className="flex justify-center mb-10">
                 <span className="text-accent1 text-center text-3xl font-medium border-b-2 border-accent1 pb-2">
                     Our Events
@@ -41,20 +35,23 @@ function Events() {
             </div>
 
             <div className="relative">
+                {/* Events Grid */}
                 <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-5 sm:px-8 ${!showMore ? 'overflow-hidden max-h-[650px]' : ''}`}>
                     {visibleEventDescriptions.map(event => (
                         <div key={event.id} className="text-center flex justify-around items-center relative">
                             <div className="flex flex-col">
+                                {/* Event Image */}
                                 <div className="w-full max-w-[400px] h-[250px] sm:h-[300px] overflow-hidden rounded-xl mx-auto relative">
                                     <img 
-                                        className="w-400 h-200 object-cover shadow-lg transition-transform transform hover:scale-105"
+                                        className="w-full h-full object-cover shadow-lg transition-transform transform hover:scale-105"
                                         src={event.image} 
                                         alt={event.title} 
                                     />
                                 </div>
-                                <div className="flex justify-around mt-2">
+                                {/* Event Details */}
+                                <div className="flex justify-between items-center mt-2">
                                     <div>
-                                        <h3 className="text-heading font-heading text-lg sm:text-xl">{event.title}</h3>
+                                        <h3 className="text-text font-heading sm:text-xl">{event.title}</h3>
                                         <p className="text-text font-text text-sm sm:text-base">{event.date}</p>
                                     </div>
                                     <button className="bg-transparent text-accent1 text-lg sm:text-2xl rounded-lg transition-transform transform hover:scale-105">Checkout</button>
@@ -64,11 +61,13 @@ function Events() {
                     ))}
                 </div>
 
+                {/* Gradient Overlay for Non-Visible Events */}
                 {!showMore && (
                     <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-background to-transparent pointer-events-none"></div>
                 )}
             </div>
 
+            {/* Show More / Show Less Button */}
             {events.length > 6 && (
                 <div className="flex justify-center mt-8">
                     <button 
