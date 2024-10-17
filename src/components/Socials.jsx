@@ -43,7 +43,7 @@ function Socials() {
                             />
                             <span className="text-text font-text text-sm sm:text-base">{social.name}</span>
                             {/* UID Tooltip */}
-                            <div className="absolute bottom-full mb-2 hidden group-hover:block bg-slate-600 text-accent2 text-sm sm:text-lg rounded-md p-2">
+                            <div className="absolute bottom-full mb-2 hidden group-hover:block bg-slate-600 text-accent1 text-sm sm:text-lg rounded-md p-2">
                                 {social.uid}
                             </div>
                         </a>
